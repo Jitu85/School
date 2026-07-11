@@ -32,6 +32,24 @@ This system replaces scattered paper registers, manual fee books, attendance she
 - [ ] Bind environment variables (e.g. `DATABASE_URL`, `SECRET_KEY`, `DEBUG`, `NEXT_PUBLIC_API_URL`).
 - [ ] Conduct final live routing tests.
 
+## Project Development Progress
+
+### Completed (Foundation & Admissions - Phases 0 & 1)
+- [x] **API Route Mapping:** Corrected core API endpoint mounting in `backend/config/urls.py` under `/api/v1/core/`.
+- [x] **Multi-Tenancy:** Implemented dynamic query filtering by `school_id` and `campus_id` for enquiries and application records.
+- [x] **API Security:** Enforced authenticated controls (`IsAuthenticated`) on list/edit views, leaving only public form creation open.
+- [x] **Authentication Flow:** Migrated from JWT to secure `SessionAuthentication` with SameSite=Lax and HttpOnly cookies.
+- [x] **Schema Normalization:** Normalized parent/guardian models, moving from flat fields on `Application` to dynamic relational references on `Guardian`.
+- [x] **Concurrency Safety:** Locked `NumberSequence` rows using database-level `select_for_update` transaction locks to prevent duplicate application IDs.
+- [x] **Frontend Navigation:** Added user login panels at `/login` and routing setups for public enquiries and application forms.
+- [x] **Database Seeding:** Created seeds to automatically verify and provision default school instances.
+
+### To Be Done (Future Modules - Phases 2 to 5)
+- [ ] **Phase 2 (Attendance & Daily Operations):** Daily grid markings, leave approval pipelines, class registers.
+- [ ] **Phase 3 (Fee & Financials):** Invoices, dynamic fee heads, concession allocation rules, cashbook/bank ledger journals.
+- [ ] **Phase 4 (Exams & Results):** Evaluation spreadsheets, grade boundaries, and QR-verifiable print layouts.
+- [ ] **Phase 5 (Library, Stock, & Payroll):** Book inventory records, purchase flows, asset disposal history, and staff payroll slips.
+
 ## Database & Deployment Details
 
 ### Database (Neon PostgreSQL)
