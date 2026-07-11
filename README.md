@@ -32,6 +32,41 @@ This system replaces scattered paper registers, manual fee books, attendance she
 - [ ] Bind environment variables (e.g. `DATABASE_URL`, `SECRET_KEY`, `DEBUG`, `NEXT_PUBLIC_API_URL`).
 - [ ] Conduct final live routing tests.
 
+## Database & Deployment Details
+
+### Database (Neon PostgreSQL)
+* **Provider:** Neon Serverless Postgres
+* **Connection String:** `postgresql://neondb_owner:npg_7zwypsIP4KTW@ep-lucky-unit-aox8djce.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require`
+* **Admin Superuser Credentials (Django Admin):**
+  * **Email / Login:** `admin@school.com`
+  * **Username:** `admin`
+  * **Password:** `adminpassword`
+
+### Backend Deployment Options
+
+#### Option A: Render (Requires Card Verification)
+1. Link the GitHub repository `https://github.com/Jitu85/School.git` to a new Web Service on Render.
+2. Configure settings:
+   * **Root Directory:** `backend`
+   * **Build Command:** `pip install -r requirements.txt && python manage.py collectstatic --no-input`
+   * **Start Command:** `gunicorn config.wsgi:application`
+3. Environment Secrets:
+   * `DATABASE_URL` = (Neon database connection string)
+   * `DEBUG` = `False`
+   * `SECRET_KEY` = (A secure random string)
+
+#### Option B: Hugging Face Spaces (Docker - Card-Free)
+1. Create a Docker Space (Blank template, CPU Basic, Public) on Hugging Face named `school-backend`.
+2. Add secrets under **Settings** -> **Variables and Secrets**:
+   * `DATABASE_URL` = (Neon database connection string)
+   * `SECRET_KEY` = (A secure random string)
+   * `DEBUG` = `False`
+3. Push the `backend` subdirectory to Hugging Face:
+   ```bash
+   git remote add hf https://huggingface.co/spaces/YOUR_HF_USERNAME/school-backend
+   git subtree push --prefix backend hf main
+   ```
+
 ## Getting Started
 
 See [DEVELOPMENT.md](DEVELOPMENT.md) for setup instructions.
