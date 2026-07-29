@@ -25,7 +25,7 @@
     "react-chartjs-2": "5.2.0",
     "jspdf": "2.5.1",
     "html2canvas": "1.4.1",
-    "qrcode.react": "1.0.1",
+    "qrcode.react": "^3.1.0",
     "@headlessui/react": "1.7.14",
     "@heroicons/react": "2.0.17"
   },
